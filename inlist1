@@ -1,0 +1,266 @@
+
+! inlist_test_rlo
+
+
+
+&star_job
+
+      mesa_dir = ''
+      show_log_description_at_start = .true.
+
+      pgstar_flag = .true.
+
+/ ! end of star_job namelist
+
+&eos
+  ! eos options
+  ! see eos/defaults/eos.defaults
+
+/ ! end of eos namelist
+
+
+&kap
+  ! kap options
+  ! see kap/defaults/kap.defaults
+  use_Type2_opacities = .true.
+  Zbase = 0.02
+
+/ ! end of kap namelist
+
+
+&controls
+
+      extra_terminal_output_file = 'log1' 
+      log_directory = 'LOGS1'
+
+      profile_interval = 10
+      history_interval = 1
+      terminal_interval = 1
+      write_header_frequency = 10
+
+/ ! end of controls namelist
+
+
+&pgstar
+      
+    file_white_on_black_flag = .false.
+    win_white_on_black_flag = .true.
+
+  ! MESA uses PGPLOT for live plotting and gives the user a tremendous
+  ! amount of control of the presentation of the information.
+
+  ! show HR diagram
+  ! this plots the history of L,Teff over many timesteps
+    HR_win_flag = .true.
+
+    HR_file_flag = .true.
+    HR_file_dir = 'png/Run10/M1_E1000/HR'
+    HR_file_prefix = 'P(orb)-M1_'
+    History_Track1_file_interval = 5
+    HR_file_width = -1
+    HR_file_aspect_ratio = -1 
+    !HR_file_cnt = 50000
+
+  ! set static plot bounds
+    HR_logT_min = 1.5
+    HR_logT_max = 6.6
+    HR_logL_min = -5.0
+    HR_logL_max = 3.0
+
+  ! set window size (aspect_ratio = height/width)
+    HR_win_width = 6
+    HR_win_aspect_ratio = 1.0
+
+
+  ! show temperature/density profile
+  ! this plots the internal structure at single timestep
+    TRho_Profile_win_flag = .true.
+
+  ! add legend explaining colors
+    show_TRho_Profile_legend = .true.
+
+  ! display numerical info about the star
+    show_TRho_Profile_text_info = .true.
+
+  ! set window size (aspect_ratio = height/width)
+    TRho_Profile_win_width = 8
+    TRho_Profile_win_aspect_ratio = 0.75
+
+    Kipp_win_flag = .false.
+    clear_history = .false.
+    
+    
+    !History_Panels1_win_flag = .true.
+
+      !### History_Panels2
+      
+         History_Panels2_win_flag = .false.
+      
+         History_Panels2_win_width = 6
+         History_Panels2_win_aspect_ratio = 0.75 ! aspect_ratio = height/width
+         
+         History_Panels2_xleft = 0.15
+         History_Panels2_xright = 0.85
+         History_Panels2_ybot = 0.15
+         History_Panels2_ytop = 0.85
+         History_Panels2_txt_scale = 1.2         
+         History_Panels2_title = 'History_Panels2'      
+         
+         History_Panels2_xaxis_name = 'star_age'
+         History_Panels2_xmin = 5
+         History_Panels2_xmax = 11
+         History_Panels2_max_width = 0 ! only used if > 0.  causes xmin to move with xmax.
+         History_Panels2_dxmin = -1
+         History_Panels2_xaxis_reversed = .false.
+         History_Panels2_xaxis_log = .true. ! show log10 of abs value
+         
+         History_Panels2_num_panels = 3
+         
+         History_Panels2_yaxis_name(1) = 'star_1_mass' 
+         History_Panels2_yaxis_reversed(1) = .false.
+         History_Panels2_yaxis_log(1) = .false. ! show log10 of abs value
+         History_Panels2_ymin(1) = 0.01d0 ! only used if /= -101d0
+         History_Panels2_ymax(1) = 1.2d0 ! only used if /= -101d0        
+         History_Panels2_ymargin(1) = 0.1 
+         History_Panels2_dymin(1) = -1 
+         
+         History_Panels2_other_yaxis_name(1) = 'star_2_mass' 
+         History_Panels2_other_yaxis_reversed(1) = .false.
+         History_Panels2_other_yaxis_log(1) = .false. ! show log10 of abs value
+         History_Panels2_other_ymin(1) = 1.0d0 ! only used if /= -101d0
+         History_Panels2_other_ymax(1) = 2.0d0 ! only used if /= -101d0        
+         History_Panels2_other_ymargin(1) = 0.1 
+         History_Panels2_other_dymin(1) = -1 
+
+         History_Panels2_yaxis_name(2) = 'period_days' 
+         History_Panels2_yaxis_reversed(2) = .false.
+         History_Panels2_yaxis_log(2) = .false. ! show log10 of abs value
+         History_Panels2_ymin(2) = 0.01d0 ! only used if /= -101d0
+         History_Panels2_ymax(2) = 1.0d0 ! only used if /= -101d0        
+         History_Panels2_ymargin(2) = 0.1 
+         History_Panels2_dymin(2) = -1 
+         
+         History_Panels2_other_yaxis_name(2) = 'lg_mstar_dot_1' 
+         History_Panels2_other_yaxis_reversed(2) = .false.
+         History_Panels2_other_yaxis_log(2) = .false. ! show log10 of abs value
+         History_Panels2_other_ymin(2) = -14d0 ! only used if /= -101d0
+         History_Panels2_other_ymax(2) = -7d0 ! only used if /= -101d0        
+         History_Panels2_other_ymargin(2) = 0.1 
+         History_Panels2_other_dymin(2) = -1 
+
+         History_Panels2_yaxis_name(3) = 'lg_mstar_dot_1' 
+         History_Panels2_yaxis_reversed(3) = .false.
+         History_Panels2_yaxis_log(3) = .false. ! show log10 of abs value
+         History_Panels2_ymin(3) = -14d0 ! only used if /= -101d0
+         History_Panels2_ymax(3) = -7d0 ! only used if /= -101d0        
+         History_Panels2_ymargin(3) = 0.1 
+         History_Panels2_dymin(3) = -1 
+         
+         History_Panels2_other_yaxis_name(3) = 'lg_wind_mdot_1' 
+         History_Panels2_other_yaxis_reversed(3) = .false.
+         History_Panels2_other_yaxis_log(3) = .false. ! show log10 of abs value
+         History_Panels2_other_ymin(3) = -14d0 ! only used if /= -101d0
+         History_Panels2_other_ymax(3) = -7d0 ! only used if /= -101d0        
+         History_Panels2_other_ymargin(3) = 0.1 
+         History_Panels2_other_dymin(3) = -1 
+      !### History_Panels3
+      
+         History_Panels3_win_flag = .true.
+         History_Panels3_file_flag = .true.
+         !History_Panels3_file_cnt = 500000 ! output when mod(model_number,History_Panels2_file_cnt)==0
+
+         History_Panels3_win_width = 5
+         History_Panels3_win_aspect_ratio = 1.5 ! aspect_ratio = height/width
+         
+         History_Panels3_xleft = 0.15
+         History_Panels3_xright = 0.85
+         History_Panels3_ybot = 0.15
+         History_Panels3_ytop = 0.85
+         History_Panels3_txt_scale = 1.2         
+         History_Panels3_title = 'History_Panels3'      
+         
+         History_Panels3_xaxis_name = 'star_mass'
+         History_Panels3_xmin = -2d0
+         History_Panels3_xmax = 0.4d0
+         History_Panels3_max_width = 0 ! only used if > 0.  causes xmin to move with xmax.
+         History_Panels3_dxmin = -1
+         History_Panels3_xaxis_reversed = .false.
+         History_Panels3_xaxis_log = .true. ! show log10 of abs value
+         
+         History_Panels3_num_panels = 2
+         
+         History_Panels3_yaxis_name(1) = 'period_days' 
+         History_Panels3_yaxis_reversed(1) = .false.
+         History_Panels3_yaxis_log(1) = .true. ! show log10 of abs value
+         History_Panels3_ymin(1) = -2d0 ! only used if /= -101d0
+         History_Panels3_ymax(1) = 3.0d0 ! only used if /= -101d0        
+         History_Panels3_ymargin(1) = 0.1 
+         History_Panels3_dymin(1) = -1 
+         
+         History_Panels3_other_yaxis_name(1) = 'lg_mstar_dot_2' 
+         History_Panels3_other_yaxis_reversed(1) = .false.
+         History_Panels3_other_yaxis_log(1) = .false. ! show log10 of abs value
+         History_Panels3_other_ymin(1) = -14d0 ! only used if /= -101d0
+         History_Panels3_other_ymax(1) = -7d0 ! only used if /= -101d0        
+         History_Panels3_other_ymargin(1) = 0.1 
+         History_Panels3_other_dymin(1) = -1 
+
+         History_Panels3_yaxis_name(2) = 'lg_wind_mdot_1' 
+         History_Panels3_yaxis_reversed(2) = .false.
+         History_Panels3_yaxis_log(2) = .false. ! show log10 of abs value
+         History_Panels3_ymin(2) = -14d0 ! only used if /= -101d0
+         History_Panels3_ymax(2) = -7d0 ! only used if /= -101d0        
+         History_Panels3_ymargin(2) = 0.1 
+         History_Panels3_dymin(2) = -1 
+         
+         History_Panels3_other_yaxis_name(2) = 'lg_mstar_dot_1' 
+         History_Panels3_other_yaxis_reversed(2) = .false.
+         History_Panels3_other_yaxis_log(2) = .false. ! show log10 of abs value
+         History_Panels3_other_ymin(2) = -14d0 ! only used if /= -101d0
+         History_Panels3_other_ymax(2) = -7d0 ! only used if /= -101d0        
+         History_Panels3_other_ymargin(2) = 0.1 
+         History_Panels3_other_dymin(2) = -1 
+
+
+
+       !Here I should add the profile plotting instructions to plot P-M2 plane
+       History_Track2_win_flag = .true.
+       History_Track2_title = 'Mass transfer vs M1'
+       History_Track2_xname = 'star_1_mass'
+       History_Track2_yname = 'lg_mstar_dot_1' 
+       History_Track2_xaxis_label = 'M1(Msun)'
+       History_Track2_yaxis_label = 'dM1/dt(Msun/yr)'
+       History_Track2_reverse_xaxis = .false.
+       History_Track2_win_aspect_ratio = 1.0 ! aspect_ratio = height/width
+       History_Track2_win_width = 7 
+       History_Track2_log_xaxis = .true.
+       History_Track2_log_yaxis = .true.
+
+      !History_Track2_file_flag = .true.
+      History_Track2_file_dir = 'png/Run12/M1.5_E0.76/Mdot'
+      History_Track2_file_prefix = 'Mdot_M1_'
+      History_Track2_file_interval = 6
+      History_Track2_file_width = -1
+      History_Track2_file_aspect_ratio = -1 
+
+       History_Track1_win_flag = .true.
+       History_Track1_title = 'Period days vs M1'
+       History_Track1_xname = 'star_1_mass'
+       History_Track1_yname = 'period_days'
+       History_Track1_xaxis_label = 'M1(Msun)'
+       History_Track1_yaxis_label = 'P(orb)(d)'
+       History_Track1_log_xaxis = .true. ! show log10 of abs value
+       History_Track1_log_yaxis = .true. ! show log10 of abs value
+       History_Track1_reverse_xaxis = .false.  
+       History_Track1_win_aspect_ratio = 1.0 ! aspect_ratio = height/width
+       History_Track1_win_width = 7
+
+      !History_Track1_file_flag = .true.
+      History_Track1_file_dir = 'png/Run12/M1.5_E0.76/P(d)'
+      History_Track1_file_prefix = 'P(orb)-M1_'
+      History_Track1_file_interval = 6
+      History_Track1_file_width = -1
+      History_Track1_file_aspect_ratio = -1      
+       
+
+/ ! end of pgstar namelist                                   

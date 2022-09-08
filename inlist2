@@ -1,0 +1,51 @@
+
+! inlist_test_rlo
+
+
+
+&star_job
+
+      mesa_dir = ''
+      show_log_description_at_start = .false.
+
+
+/ ! end of star_job namelist
+
+&eos
+  ! eos options
+  ! see eos/defaults/eos.defaults
+
+/ ! end of eos namelist
+
+
+&kap
+  ! kap options
+  ! see kap/defaults/kap.defaults
+  use_Type2_opacities = .true.
+  Zbase = 0.02 
+/ ! end of kap namelist
+
+&controls
+
+      varcontrol_target = 1d-3
+      initial_mass = 4
+     ! use_other_wind = .true.      ! Find out why is this being used
+
+
+      extra_terminal_output_file = 'log2' 
+      log_directory = 'LOGS2'
+
+      profile_interval = 10
+      history_interval = 1
+      terminal_interval = 1
+      write_header_frequency = 10
+
+/ ! end of cont
+                                           
+      
+
+
+&pgstar
+     
+
+/ ! end of pgstar namelist

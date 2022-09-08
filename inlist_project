@@ -1,0 +1,55 @@
+&binary_job
+
+   inlist_names(1) = 'inlist1' 
+   inlist_names(2) = 'inlist2'
+
+   evolve_both_stars = .false.
+
+/ ! end of binary_job namelist
+
+&binary_controls
+         
+   m1 = 1.5d0  ! donor mass in Msun
+   m2 = 1.35d0 ! neutron star mass in Msun
+
+   initial_period_in_days = 0.76d0
+   initial_eccentricity = 0.0
+   
+   fr = 0.05      !Why??
+   fr_limit = 1d-2                        ! not changed from default
+   
+   do_jdot_gr = .true.
+   do_jdot_ml = .true.
+   do_jdot_ls = .true.                    ! keeping jdot conserved except for defined losses
+   do_jdot_missing_wind = .false.
+   do_jdot_mb = .true.
+  
+   jdot_mb_min_qconv_env = 1d-6
+   jdot_mb_max_qconv_env = 0.99d0
+
+   jdot_mb_max_qrad_core = 1d0             !By default, it was 10^{-2} which led to a few instability points in the case of ultracompact (M1P0.4)
+   jdot_mb_qlim_for_check_rad_core = 1d-3
+   jdot_mb_qlim_for_check_conv_env = 0.999d0
+
+   magnetic_braking_gamma = 4.0d0           ! It should be 4 according to the paper. 
+   keep_mb_on = .false.                   ! magnetic braking stopping when radiative core goes away. 
+   
+              
+   mass_transfer_beta = 0.5d0           ! ML  mass transfer efficiency 
+
+   limit_retention_by_mdot_edd = .true.   ! transfer efficiency controls
+   accretion_powered_irradiation = .false. ! turn on irradiation of the donor due to accretion onto a compact object. 
+
+   
+   use_other_mdot_edd = .true.          ! for directing to use mdot_edd different from the default one. 
+   use_other_jdot_ml = .true.
+   !use_other_jdot_mb = .true. 
+   use_other_extra_jdot = .false.
+   do_tidal_sync = .true.               ! MESA requires the stars to be in tidal synchronization to calculate magnetic braking. 
+   do_initial_orbit_sync_1 = .true.
+   do_tidal_circ = .true.
+
+   max_tries_to_achieve = 500
+         
+/ ! end of binary_controls namelist
+
